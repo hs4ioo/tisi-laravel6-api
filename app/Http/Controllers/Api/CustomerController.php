@@ -17,7 +17,6 @@ class CustomerController extends Controller
     {
         $customer = Customer::all();
         return response()->json($customer);
-
     }
 
     /**
@@ -28,7 +27,17 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+
+        $customer = new Customer;
+        $inputs = request()->all();
+        $customer->first_name = isset($inputs['fistname']) ? $inputs['fistname']:$customer->fistname;
+        $customer->last_name = isset($inputs['last_name']) ? $inputs['last_name']:$customer->last_name;
+        $customer->email = isset($inputs['email']) ? $inputs["email"]:$customer->email;
+
+        $customer->save();
+
+
     }
 
     /**
@@ -58,10 +67,16 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $customer = Customer::findorFail($id);
+        $inputs = request()->all();
+        $customer->first_name = $inputs['firestname'];
+        $customer->last_name = $inputs['last_name'];
+        $customer->email = isset($inputs['email'])?$inputs["email"]:$customer->email;
+
+        $customer->save();
     }
 
-    /**
+    /** $customer -> save();
      * Remove the specified resource from storage.
      *
      * @param  int  $id
@@ -69,6 +84,13 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try{
+            $customer = Customer::findorfail($id);
+            $customer->delete();
+            return response()->json($customer);
+
+        } catch (Expcepion $e){
+
+        }
     }
 }
