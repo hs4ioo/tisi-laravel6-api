@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\NumberController;
 use Illuminate\Http\Request;
 
 /*
@@ -18,5 +19,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/', function(){
-    return 'api';
+    return respose()->json(['title'=>'laravel Api']);
+
 });
+
+Route::apiResource('numbers','Api\NumberController');
