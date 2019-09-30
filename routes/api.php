@@ -24,3 +24,4 @@ Route::get('/', function(){
 });
 
 Route::apiResource('numbers','Api\NumberController');
+Route::apiResource('customer','Api\CustomerController');
